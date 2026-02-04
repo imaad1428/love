@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Imaad ❤️ Ishrath</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffdde1,#fbc2eb);
+    background-size:400% 400%;
+    animation: gradientBG 14s ease infinite;
+    color:#000; /* pure black */
+    text-align:center;
+    cursor:pointer;
+    font-family: 'Great Vibes', cursive, Arial, sans-serif;
+}
+
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{padding:20px;max-width:92%;z-index:2;}
+
+.heart{
+    font-size:80px;
+    opacity:0;
+    animation:showHeart 1.8s forwards;
+}
+@keyframes showHeart{
+    to{opacity:1;transform:scale(1.2);}
+}
+
+.names{
+    font-size:42px;
+    margin-top:18px;
+    opacity:0;
+    animation:fadeIn 1.5s forwards;
+    animation-delay:2s;
+}
+
+.shayari{
+    margin-top:24px;
+    font-size:22px;
+    line-height:1.4;
+    opacity:0;
+    animation:fadeIn 1.5s forwards;
+    animation-delay:4s;
+}
+
+.love{
+    margin-top:30px;
+    font-size:34px;
+    opacity:0;
+    animation:fadeIn 1.5s forwards;
+    animation-delay:7s;
+}
+
+@keyframes fadeIn{to{opacity:1;}}
+
+/* Floating hearts */
+.heart-float{
+    position:absolute;
+    bottom:-40px;
+    font-size:22px;
+    animation:floatUp linear infinite;
+    opacity:0.6;
+}
+@keyframes floatUp{
+    0%{transform:translateY(0);opacity:0;}
+    50%{opacity:1;}
+    100%{transform:translateY(-110vh);opacity:0;}
+}
+
+/* Explosion hearts */
+.explode{
+    position:absolute;
+    font-size:20px;
+    animation:explodeAnim 1s ease-out forwards;
+}
+@keyframes explodeAnim{
+    to{
+        transform:translate(var(--x), var(--y));
+        opacity:0;
+    }
+}
+
+/* Mobile specific tuning */
+@media (max-width:600px){
+    .names{font-size:34px;}
+    .shayari{font-size:19px;}
+    .love{font-size:28px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="heart">❤️</div>
+
+    <div class="names">Imaad & Ishrath</div>
+
+    <div class="shayari">
+        “Apki ye udti zulfein aur ye khoobsurat muskaan,<br>
+        Apki ek Adaah se Sambhlu to dusri hosh uda deti hai”
+    </div>
+
+    <div class="love">I love you bbeeee ❤️</div>
+</div>
+
+<script>
+// Floating hearts (optimized)
+function createHeart(){
+    const h=document.createElement('div');
+    h.className='heart-float';
+    h.innerHTML='❤️';
+    h.style.left=Math.random()*100+'vw';
+    h.style.fontSize=(18+Math.random()*12)+'px';
+    h.style.animationDuration=(10+Math.random()*5)+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),14000);
+}
+setInterval(createHeart,1200); // slower = smoother
+
+// Touch/Click explosion + fullscreen
+document.body.addEventListener('click',function(e){
+    for(let i=0;i<8;i++){ // reduced hearts
+        const ex=document.createElement('div');
+        ex.className='explode';
+        ex.innerHTML='❤️';
+        ex.style.left=e.clientX+'px';
+        ex.style.top=e.clientY+'px';
+
+        const angle=Math.random()*2*Math.PI;
+        const radius=70+Math.random()*40;
+        ex.style.setProperty('--x',Math.cos(angle)*radius+'px');
+        ex.style.setProperty('--y',Math.sin(angle)*radius+'px');
+
+        document.body.appendChild(ex);
+        setTimeout(()=>ex.remove(),1000);
+    }
+
+    if(!document.fullscreenElement){
+        document.documentElement.requestFullscreen().catch(()=>{});
+    }
+});
+</script>
+
+</body>
+</html>
